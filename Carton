@@ -1,0 +1,12 @@
+(source "melpa" "http://melpa.milkbox.net/packages/")
+(source "marmalade" "http://marmalade-repo.org/packages/")
+
+(depends-on "popwin")
+(depends-on "helm")
+(depends-on "helm-ag")
+(depends-on "helm-gtags")
+(depends-on "auto-async-byte-compile")
+(depends-on "highlight-parentheses")
+(depends-on "inkpot-theme")
+(depends-on "markdown-mode")
+(depends-on "carton")
