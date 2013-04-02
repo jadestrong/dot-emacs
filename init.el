@@ -11,6 +11,7 @@
 (package-initialize)
 
 (require 'kzkn-ido)
+(require 'kzkn-helm)
 (require 'kzkn-defuns)
 (require 'kzkn-misc)
 (require 'kzkn-programming)
