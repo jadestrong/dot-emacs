@@ -11,6 +11,7 @@
 
 (require 'kzkn-c)
 (require 'kzkn-lisp)
+(require 'kzkn-cl)
 (require 'kzkn-sh)
 
 (add-to-list 'auto-mode-alist '("\\.markdown$" . markdown-mode))
