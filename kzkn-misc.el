@@ -1,5 +1,11 @@
 ;;; kzkn-misc.el --- Miscellaneous settings
 
+(defun optional-require (pkg)
+  (require pkg nil t))
+
+(defun optional-load (file)
+  (and (file-exists-p file) (load file)))
+
 ;; display time on mode line
 (display-time-mode t)
 
@@ -69,8 +75,8 @@
 (setq read-file-name-completion-ignore-case t)
 
 ;; mozc
-(require 'mozc)
-(setq default-input-method "japanese-mozc")
+(when (optional-require 'mozc)
+  (setq default-input-method "japanese-mozc"))
 
 ;; popwin
 (require 'popwin)

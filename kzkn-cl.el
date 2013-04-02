@@ -5,7 +5,7 @@
 
 ;; use quicklisp-slime-helper
 ;; installation: (ql:quickload "quicklisp-slime-helper")
-(load (expand-file-name "~/quicklisp/slime-helper.el"))
-(setq inferior-lisp-program "sbcl")
+(when (optional-load (expand-file-name "~/quicklisp/slime-helper.el"))
+  (setq inferior-lisp-program "sbcl"))
 
 (provide 'kzkn-cl)
