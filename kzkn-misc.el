@@ -48,9 +48,14 @@
 (show-paren-mode 1)
 
 ;; font
-(condition-case nil
-    (set-frame-font "Consolas 10")
-  (error (ignore-errors (set-frame-font "Ricty 10"))))
+(defun set-font (fonts)
+  (if fonts
+      (condition-case nil
+          (set-frame-font (car fonts))
+        (error (set-font (cdr fonts))))
+    nil))
+
+(set-font '("Consolas 10" "Ricty 10"))
 
 ;; delete region
 (delete-selection-mode t)
