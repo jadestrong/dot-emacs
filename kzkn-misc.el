@@ -121,4 +121,8 @@
 
 (read-scratch-data)
 
+(require 'sublimity)
+(sublimity-scroll)
+(sublimity-map)
+
 (provide 'kzkn-misc)
