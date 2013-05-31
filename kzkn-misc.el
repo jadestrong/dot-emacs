@@ -74,6 +74,24 @@
 (setq completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)
 
+;; buffer name uniquify <DIRNAME>
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+
+;; current line
+(defface hlline-face
+  '((((class color)
+      (background dark))
+     (:background "dark slate gray"))
+    (((class color)
+      (background light))
+     (:background "#98FB98"))
+    (t
+     ()))
+  "*Face used by hl-line.")
+(setq hl-line-face 'hlline-face)
+(global-hl-line-mode)
+
 ;; mozc
 (when (optional-require 'mozc)
   (setq default-input-method "japanese-mozc"))
