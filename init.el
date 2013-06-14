@@ -6,7 +6,7 @@
   (expand-file-name "vendor" user-emacs-directory)
   "Path to vendor directory")
 
-(load (expand-file-name "kzkn-paths.el" user-emacs-directory))
+(load (expand-file-name "kzkn-paths" user-emacs-directory))
 
 (package-initialize)
 
