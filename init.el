@@ -16,6 +16,7 @@
 (require 'kzkn-defuns)
 (require 'kzkn-misc)
 (require 'kzkn-programming)
+(optional-require 'kzkn-local)
 
 (require 'carton)
 (carton-setup user-emacs-directory)
