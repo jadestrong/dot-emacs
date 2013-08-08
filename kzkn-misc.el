@@ -23,10 +23,11 @@
 (set-face-background 'region "SkyBlue")
 (set-face-foreground 'region "black")
 
-;; show line number/column number on mode line
-(require 'linum)
-(global-linum-mode t)
+;; show column number on mode line
 (column-number-mode t)
+
+;; disable scroll-bar (for performance)
+(scroll-bar-mode -1)
 
 ;; auto save
 (auto-save-mode t)
