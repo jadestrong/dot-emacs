@@ -9,29 +9,40 @@
         (buffer-substring (region-beginning) (region-end))
       (read-string "Query: ")))))
 
-(defun toggle-samba-path ()
+(defun buffer-current-line-string ()
+  (save-excursion
+    (buffer-substring (progn (beginning-of-line) (point))
+                      (progn (end-of-line) (point)))))
+
+(defun buffer-current-line-starts-with (prefix)
+  (let ((line (buffer-current-line-string)))
+    (and (<= (length prefix) (length line))
+         (equal prefix (substring line 0 (length prefix))))))
+
+(defun open-path ()
   (interactive)
   (save-excursion
-    (beginning-of-line)
-    (if (equal "smb:" (buffer-substring (point) (+ (point) 4)))
-        (thunar-to-win)
-      (win-to-thunar))))
+    (let ((path (if (%thunar-path-p)
+                    (buffer-current-line-string)
+                  (%win-to-thunar))))
+      (start-process "open-path" nil "/usr/bin/thunar" path))))
 
-(defun thunar-to-win ()
-  (%toggle-smb-path "/" "\\\\" (lambda () (delete-char 4))))
+(defun %thunar-path-p ()
+  (buffer-current-line-starts-with "smb:"))
 
-(defun win-to-thunar ()
-  (%toggle-smb-path "\\" "/" (lambda () (insert "smb:"))))
+(defun %win-to-thunar ()
+  (let ((orig-path (buffer-current-line-string)))
+    (with-temp-buffer
+      (insert orig-path)
+      (%replace-path-separators)
+      (buffer-string))))
 
-(defun %toggle-smb-path (before-path-separator
-                         after-path-separator
-                         on-beginning-line)
+(defun %replace-path-separators ()
   (let ((end (progn (end-of-line) (point))))
     (beginning-of-line)
-    (funcall on-beginning-line)
-    (while (and (search-forward before-path-separator nil t)
-                (<= (point) end))
-      (replace-match after-path-separator))))
+    (insert "smb:")
+    (while (and (search-forward "\\" nil t) (<= (point) end))
+      (replace-match "/"))))
 
 (defun resize-window ()
   "Resize the current window."
