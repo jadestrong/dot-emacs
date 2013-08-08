@@ -18,7 +18,7 @@
 (require 'kzkn-programming)
 (optional-require 'kzkn-local)
 
-(require 'carton)
-(carton-setup user-emacs-directory)
+(require 'cask "~/.cask/cask.el")
+(cask-initialize)
 
 (server-start)

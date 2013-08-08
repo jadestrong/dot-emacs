@@ -9,6 +9,5 @@
 (depends-on "highlight-parentheses")
 (depends-on "inkpot-theme")
 (depends-on "markdown-mode")
-(depends-on "cask")
 (depends-on "android-mode")
 (depends-on "migemo")
