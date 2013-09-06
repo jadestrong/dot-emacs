@@ -7,6 +7,7 @@
 (require 'kzkn-c)
 (require 'kzkn-lisp)
 (require 'kzkn-cl)
+(require 'kzkn-lua)
 (require 'kzkn-sh)
 (require 'kzkn-android)
 

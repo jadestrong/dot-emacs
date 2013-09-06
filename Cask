@@ -12,3 +12,4 @@
 (depends-on "android-mode")
 (depends-on "migemo")
 (depends-on "paredit")
+(depends-on "lua-mode")
