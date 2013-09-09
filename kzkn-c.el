@@ -1,5 +1,7 @@
 ;;; kzkn-c.el --- C programming stuff
 
+(require 'cc-mode)
+
 (defun kzkn-c-mode-hook ()
   (c-set-style "K&R")
   (setq tab-width 2)

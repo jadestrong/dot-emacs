@@ -1,5 +1,5 @@
-(source "melpa" "http://melpa.milkbox.net/packages/")
-(source "marmalade" "http://marmalade-repo.org/packages/")
+(source melpa)
+(source marmalade)
 
 (depends-on "popwin")
 (depends-on "helm")
