@@ -85,16 +85,10 @@
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 
 ;; current line
+(defvar hl-line-face) ;; Quiet the byte-compiler
 (defface hlline-face
-  '((((class color)
-      (background dark))
-     (:background "dark slate gray"))
-    (((class color)
-      (background light))
-     (:background "#98FB98"))
-    (t
-     ()))
-  "*Face used by hl-line.")
+  '((t (:background "dark slate gray")))
+  "*Face to use for `hl-line-face'." :group 'hl-line)
 (setq hl-line-face 'hlline-face)
 (global-hl-line-mode)
 
@@ -104,7 +98,7 @@
 
 ;; popwin
 (require 'popwin)
-(setq display-buffer-function 'popwin:display-buffer)
+(popwin-mode 1)
 
 ;; inkpot-theme
 (when window-system
