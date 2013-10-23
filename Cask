@@ -11,3 +11,5 @@
 (depends-on "markdown-mode")
 (depends-on "android-mode")
 (depends-on "migemo")
+(depends-on "evil")
+(depends-on "paredit")
