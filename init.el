@@ -17,7 +17,7 @@
 
 (server-start)
 
-;;;; packages
+;;;; Packages
 
 (use-package ido
   :init (ido-mode t)
@@ -128,3 +128,18 @@
 
 (use-package sh-script
   :config (setq sh-basic-offset 2))
+
+
+;;;; Bindings
+
+(bind-key "M-g" 'goto-line)
+(bind-key "M-+" 'text-scale-increase)
+(bind-key "M-_" 'text-scale-decrease)
+(bind-key "M-k" 'kill-this-buffer)
+(bind-key "M-o" 'other-window)
+(bind-key "M-1" 'delete-other-windows)
+(bind-key "M-2" 'split-window-below)
+(bind-key "M-3" 'split-window-right)
+(bind-key "M-0" 'delete-window)
+(bind-key "M-}" 'next-buffer)
+(bind-key "M-{" 'previous-buffer)
