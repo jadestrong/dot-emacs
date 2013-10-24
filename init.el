@@ -143,3 +143,5 @@
 (bind-key "M-0" 'delete-window)
 (bind-key "M-}" 'next-buffer)
 (bind-key "M-{" 'previous-buffer)
+
+(bind-key "C-c s" 'swap-windows)
