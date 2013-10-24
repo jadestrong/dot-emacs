@@ -13,7 +13,6 @@
 (cask-initialize)
 
 (require 'kzkn-ido)
-(require 'kzkn-evil)
 (require 'kzkn-migemo)
 (require 'kzkn-helm)
 (require 'kzkn-defuns)
