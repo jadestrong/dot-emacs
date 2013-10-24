@@ -1,4 +1,4 @@
-# kzkn emacs settings #
+# My emacs settings #
 
 This is emacs configuration files.
 
@@ -7,8 +7,8 @@ This is emacs configuration files.
     $ git clone git://github.com/kzkn/dot-emacs.git ~/.emacs.d
     $ echo '(load (expand-file-name "init.el" user-emacs-directory))' >~/.emacs.el
     $ cd ~/.emacs.d
-    $ carton
+    $ cask
 
-## Carton ##
+## Cask ##
 
-ELPA packages are managed by [Carton](https://github.com/rejeep/carton).
+ELPA packages are managed by [Cask](https://github.com/cask/cask)
