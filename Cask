@@ -1,6 +1,7 @@
 (source melpa)
 (source marmalade)
 
+(depends-on "use-package")
 (depends-on "popwin")
 (depends-on "helm")
 (depends-on "helm-ag")
