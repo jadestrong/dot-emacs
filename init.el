@@ -4,6 +4,13 @@
 (dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode))
   (when (fboundp mode) (funcall mode -1)))
 
+(let ((vendor-dir-path (expand-file-name "vendor" user-emacs-directory)))
+  (dolist (dir (remove-if (lambda (s) (or (member s '("." ".."))
+                                          (not (file-directory-p
+                                                (expand-file-name s vendor-dir-path)))))
+                          (directory-files vendor-dir-path)))
+    (add-to-list 'load-path (expand-file-name dir vendor-dir-path))))
+
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
 
@@ -144,6 +151,18 @@
 
 (use-package inkpot-theme
   :if window-system)
+
+(use-package ibus
+  :if (equal window-system 'x)
+  :init (add-hook 'after-init-hook 'ibus-mode-on)
+  :config
+  (progn
+    (add-to-list 'ibus-agent-search-paths
+                 (file-name-directory (locate-library "ibus")))
+    (bind-key "C-\\" 'ibus-toggle)
+    (ibus-define-common-key ?\C-\s nil)
+    (ibus-define-common-key ?\C-/ nil)
+    (setq ibus-cursor-color '("gold" nil))))
 
 
 ;;;; Bindings
