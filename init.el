@@ -94,9 +94,13 @@
 (use-package cc-mode
   :config
   (progn
-    (add-hook 'c-mode-common-hook (lambda () (c-set-style "K&R")))
-    (setq tab-width 2)
-    (setq c-basic-offset 2)))
+    (setq c-default-style "K&R")
+    (c-set-offset 'inextern-lang 0)
+    (add-hook 'c-mode-common-hook
+              (lambda ()
+                (setq indent-tabs-mode nil)
+                (setq tab-width 2)
+                (setq c-basic-offset 2)))))
 
 (use-package highlight-parenthese
   :init (add-hook 'find-file-hook 'highlight-parentheses-mode))
@@ -120,7 +124,7 @@
 
 (add-to-list 'auto-mode-alist '("\\.asd$" . lisp-mode))
 (add-to-list 'auto-mode-alist '("\\.asdf$" . lisp-mode))
-(when (optional-load (expand-file-name "~/quicklisp/slime-helper.el"))
+(when (load (expand-file-name "~/quicklisp/slime-helper.el") t)
   (setq inferior-lisp-program "sbcl"))
 
 (use-package lua-mode
@@ -128,6 +132,18 @@
 
 (use-package sh-script
   :config (setq sh-basic-offset 2))
+
+(use-package popwin
+  :init (popwin-mode 1))
+
+(use-package uniquify
+  :config (setq uniquify-buffer-name-style 'post-forward-angle-brackets))
+
+(use-package mozc
+  :init (setq default-input-method "japanese-mozc"))
+
+(use-package inkpot-theme
+  :if window-system)
 
 
 ;;;; Bindings

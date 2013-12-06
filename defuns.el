@@ -1,4 +1,5 @@
-;;; kzkn-defuns.el --- Custom functions
+(eval-when-compile
+  (require 'cl))
 
 (defun google ()
   (interactive)
@@ -79,5 +80,3 @@
            (set-window-start w1 s2)
            (set-window-start w2 s1))))
   (other-window 1))
-
-(provide 'kzkn-defuns)

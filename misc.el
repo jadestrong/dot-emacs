@@ -1,11 +1,3 @@
-;;; kzkn-misc.el --- Miscellaneous settings
-
-(defun optional-require (pkg)
-  (require pkg nil t))
-
-(defun optional-load (file)
-  (and (file-exists-p file) (load file)))
-
 ;; display time on mode line
 (display-time-mode t)
 
@@ -25,9 +17,6 @@
 
 ;; show column number on mode line
 (column-number-mode t)
-
-;; disable scroll-bar (for performance)
-(scroll-bar-mode -1)
 
 ;; auto save
 (auto-save-mode t)
@@ -61,14 +50,6 @@
 ;; delete region
 (delete-selection-mode t)
 
-;; hide tool bar
-(when window-system
-  (tool-bar-mode -1))
-
-;; hide menu bar when -nw
-(unless window-system
-  (menu-bar-mode -1))
-
 ;; move lines as logical line (like Emacs 22)
 (setq line-move-visual nil)
 
@@ -80,10 +61,6 @@
 (setq completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)
 
-;; buffer name uniquify <DIRNAME>
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
-
 ;; current line
 (defvar hl-line-face) ;; Quiet the byte-compiler
 (defface hlline-face
@@ -91,18 +68,6 @@
   "*Face to use for `hl-line-face'." :group 'hl-line)
 (setq hl-line-face 'hlline-face)
 (global-hl-line-mode)
-
-;; mozc
-(when (optional-require 'mozc)
-  (setq default-input-method "japanese-mozc"))
-
-;; popwin
-(require 'popwin)
-(popwin-mode 1)
-
-;; inkpot-theme
-(when window-system
-  (require 'inkpot-theme))
 
 ;;; delete trailing whitespace (like Vim) on before save
 (defvar do-delete-trailing-whitespace-on-save t)
@@ -138,5 +103,3 @@
       (insert-file-contents file))))
 
 (read-scratch-data)
-
-(provide 'kzkn-misc)
