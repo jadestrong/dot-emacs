@@ -123,12 +123,6 @@
   :interpreter (("emacs" . emacs-lisp-mode))
   :mode (("Cask" . emacs-lisp-mode)))
 
-(use-package paredit
-  :init
-  (dolist (mode '(emacs-lisp-mode lisp-mode lisp-interaction-mode))
-    (add-hook (intern (concat (symbol-name mode) "-hook"))
-              'enable-paredit-mode)))
-
 (add-to-list 'auto-mode-alist '("\\.asd$" . lisp-mode))
 (add-to-list 'auto-mode-alist '("\\.asdf$" . lisp-mode))
 (when (load (expand-file-name "~/quicklisp/slime-helper.el") t)
