@@ -87,9 +87,10 @@
 
 ;; auto backup/restore scratch buffer
 (defun save-scratch-data ()
-  (with-current-buffer "*scratch*"
-    (write-region (point-min) (point-max)
-                  (expand-file-name "~/.emacs.d/scratch"))))
+  (when (get-buffer "*scratch*")
+    (with-current-buffer "*scratch*"
+      (write-region (point-min) (point-max)
+                    (expand-file-name "~/.emacs.d/scratch")))))
 
 (defadvice save-buffers-kill-emacs
   (before save-scratch-buffer activate)
