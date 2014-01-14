@@ -1,3 +1,6 @@
+;; GC
+(setq gc-cons-threshold (* 128 1024 1024))
+
 ;; display time on mode line
 (display-time-mode t)
 
