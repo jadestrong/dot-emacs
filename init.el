@@ -1,14 +1,14 @@
-(eval-when-compile
-  (require 'cl))
+(require 'cl-lib)
 
 (dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode))
   (when (fboundp mode) (funcall mode -1)))
 
 (let ((vendor-dir-path (expand-file-name "vendor" user-emacs-directory)))
-  (dolist (dir (remove-if (lambda (s) (or (member s '("." ".."))
-                                          (not (file-directory-p
-                                                (expand-file-name s vendor-dir-path)))))
-                          (directory-files vendor-dir-path)))
+  (dolist (dir (cl-remove-if (lambda (s)
+                               (or (member s '("." ".."))
+                                   (not (file-directory-p
+                                         (expand-file-name s vendor-dir-path)))))
+                             (directory-files vendor-dir-path)))
     (add-to-list 'load-path (expand-file-name dir vendor-dir-path))))
 
 (require 'cask "~/.cask/cask.el")
