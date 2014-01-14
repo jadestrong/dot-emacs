@@ -158,6 +158,8 @@
     (ibus-define-common-key ?\C-/ nil)
     (setq ibus-cursor-color '("gold" nil))))
 
+(use-package esup)
+
 
 ;;;; Bindings
 
