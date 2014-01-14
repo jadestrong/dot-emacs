@@ -103,4 +103,4 @@
       (erase-buffer)
       (insert-file-contents file))))
 
-(read-scratch-data)
+(add-hook 'emacs-startup-hook 'read-scratch-data)
