@@ -72,22 +72,6 @@
 (setq hl-line-face 'hlline-face)
 (global-hl-line-mode)
 
-;;; delete trailing whitespace (like Vim) on before save
-(defvar do-delete-trailing-whitespace-on-save t)
-
-(defun delete-trailing-whitespace-on-save ()
-  (interactive)
-  (when do-delete-trailing-whitespace-on-save
-    (delete-trailing-whitespace)))
-
-(add-hook 'before-save-hook 'delete-trailing-whitespace-on-save)
-
-;; save with not delete trailing whitespace
-(defun save-buffer-with-no-delete-trailing-whitespace ()
-  (interactive)
-  (let ((do-delete-trailing-whitespace-on-save nil))
-    (save-buffer)))
-
 ;; auto backup/restore scratch buffer
 (defun save-scratch-data ()
   (when (get-buffer "*scratch*")

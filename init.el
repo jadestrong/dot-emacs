@@ -37,26 +37,16 @@
     (setq ido-max-prospects 10)
     (setq ido-case-fold t)))
 
-(use-package migemo
-  :if (executable-find "cmigemo")
-  :init
-  (progn
-    (setq migemo-command "cmigemo")
-    (setq migemo-options '("-q" "--emacs"))
-    (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")
-    (setq migemo-user-dictionary nil)
-    (setq migemo-regex-dictionary nil)
-    (setq migemo-coding-system 'utf-8-unix)
-    (migemo-init)))
+(defun update-gtags ()
+  (interactive)
+  (let* ((file (buffer-file-name (current-buffer)))
+         (dir (directory-file-name (file-name-directory file))))
+    (when (executable-find "global")
+      (start-process "gtags-update" nil "global" "-u"))))
 
 (use-package helm
   :init
   (progn
-    (use-package helm-ag
-      :config
-      (progn
-        (defalias 'ag 'helm-ag)
-        (defalias 'ag-file 'helm-ag-this-file)))
     (use-package helm-gtags
       :config
       (progn
@@ -68,7 +58,8 @@
                     (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
                     (local-set-key (kbd "M-*") 'helm-gtags-pop-stack)
                     (local-set-key (kbd "C-c C-f") 'helm-gtags-find-files)
-                    (local-set-key (kbd "C-c o") 'helm-gtags-parse-file))))))
+                    (local-set-key (kbd "C-c o") 'helm-gtags-parse-file)
+                    (add-hook 'after-save-hook 'update-gtags nil 'local))))))
   :config
   (progn
     (bind-key "C-c h" 'helm-mini)
@@ -124,7 +115,8 @@
     (use-package eldoc
       :init (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode))
     (use-package auto-async-byte-compile
-      :init (add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode)))
+      :init (add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode)
+      :config (setq auto-async-byte-compile-suppress-warnings t)))
   :config (bind-key "M-." 'find-function-at-point emacs-lisp-mode-map)
   :interpreter (("emacs" . emacs-lisp-mode))
   :mode (("Cask" . emacs-lisp-mode)))
@@ -172,7 +164,10 @@
     (setq web-mode-markup-indent-offset 2
           web-mode-css-indent-offset 2
           web-mode-code-indent-offset 4
-          web-mode-engines-alist '(("php" . "\\.ctp$")))))
+          web-mode-engines-alist '(("php" . "\\.ctp$"))))
+  :mode
+  (("\\.ctp$" . web-mode)
+   ("\\.html?$" . web-mode)))
 
 (use-package php-mode
   :config
@@ -181,11 +176,16 @@
     (add-hook 'php-mode-hook
               (lambda ()
                 (setq-local c-basic-offset 4)))
-    (bind-key "C-c C-m" 'php-search-documentation php-mode-map)))
+    (bind-key "C-c C-m" 'php-search-documentation php-mode-map))
+  :mode
+  (("\\.php$" . php-mode)))
 
-(add-to-list 'auto-mode-alist '("\\.ctp$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.html?$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
+(use-package ws-butler
+  :init
+  (mapc (lambda (hook)
+          (add-hook hook 'ws-butler-mode))
+        '(c-mode-common-hook
+          emacs-lisp-mode-hook)))
 
 
 ;;;; Global Bindings
@@ -203,3 +203,4 @@
 (bind-key "M-{" 'previous-buffer)
 
 (bind-key "C-c s" 'swap-windows)
+(bind-key "C-c w" 'whitespace-mode)
