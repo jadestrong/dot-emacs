@@ -14,3 +14,5 @@
 (depends-on "migemo")
 (depends-on "paredit")
 (depends-on "lua-mode")
+(depends-on "web-mode")
+(depends-on "php-mode")

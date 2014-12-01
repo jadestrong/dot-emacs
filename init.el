@@ -98,16 +98,22 @@
   (("\\.markdown$" . markdown-mode)
    ("\\.md$" . markdown-mode)))
 
+(defun compile-immediate ()
+  (interactive)
+  (setq-local compilation-read-command nil)
+  (call-interactively 'compile))
+
 (use-package cc-mode
   :config
   (progn
-    (setq c-default-style "K&R")
-    (c-set-offset 'inextern-lang 0)
     (add-hook 'c-mode-common-hook
               (lambda ()
-                (setq indent-tabs-mode nil)
-                (setq tab-width 2)
-                (setq c-basic-offset 2)))))
+                (c-set-offset 'inextern-lang 0)
+                (setq-local c-default-style "K&R")
+                (setq-local indent-tabs-mode nil)
+                (setq-local tab-width 2)
+                (setq-local c-basic-offset 2)))
+    (bind-key "C-c c" 'compile-immediate c-mode-map)))
 
 (use-package highlight-parenthese
   :init (add-hook 'find-file-hook 'highlight-parentheses-mode))
@@ -160,8 +166,29 @@
 
 (use-package esup)
 
+(use-package web-mode
+  :config
+  (progn
+    (setq web-mode-markup-indent-offset 2
+          web-mode-css-indent-offset 2
+          web-mode-code-indent-offset 4
+          web-mode-engines-alist '(("php" . "\\.ctp$")))))
 
-;;;; Bindings
+(use-package php-mode
+  :config
+  (progn
+    (setq php-manual-path "/opt/phpdoc")
+    (add-hook 'php-mode-hook
+              (lambda ()
+                (setq-local c-basic-offset 4)))
+    (bind-key "C-c C-m" 'php-search-documentation php-mode-map)))
+
+(add-to-list 'auto-mode-alist '("\\.ctp$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html?$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
+
+
+;;;; Global Bindings
 
 (bind-key "M-g" 'goto-line)
 (bind-key "M-+" 'text-scale-increase)
