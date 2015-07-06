@@ -27,15 +27,14 @@
 ;;;; Packages
 
 (use-package ido
-  :init (ido-mode t)
   :config
-  (progn
-    (setq ido-everywhere t)
-    (setq ido-enable-prefix nil)
-    (setq ido-enable-flex-matching t)
-    (setq ido-create-new-buffer 'always)
-    (setq ido-max-prospects 10)
-    (setq ido-case-fold t)))
+  (ido-mode t)
+  (setq ido-everywhere t)
+  (setq ido-enable-prefix nil)
+  (setq ido-enable-flex-matching t)
+  (setq ido-create-new-buffer 'always)
+  (setq ido-max-prospects 10)
+  (setq ido-case-fold t))
 
 (defun update-gtags ()
   (interactive)
@@ -46,45 +45,41 @@
 
 (use-package helm
   :init
-  (progn
-    (use-package helm-gtags
-      :config
-      (progn
-        (add-hook 'c-mode-common-hook 'helm-gtags-mode)
-        (add-hook 'helm-gtags-mode-hook
-                  (lambda ()
-                    (local-set-key (kbd "M-.") 'helm-gtags-find-tag)
-                    (local-set-key (kbd "M-,") 'helm-gtags-find-rtag)
-                    (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
-                    (local-set-key (kbd "M-*") 'helm-gtags-pop-stack)
-                    (local-set-key (kbd "C-c C-f") 'helm-gtags-find-files)
-                    (local-set-key (kbd "C-c o") 'helm-gtags-parse-file)
-                    (add-hook 'after-save-hook 'update-gtags nil 'local))))))
+  (use-package helm-gtags
+    :config
+    (add-hook 'c-mode-common-hook 'helm-gtags-mode)
+    (add-hook 'helm-gtags-mode-hook
+              (lambda ()
+                (local-set-key (kbd "M-.") 'helm-gtags-find-tag)
+                (local-set-key (kbd "M-,") 'helm-gtags-find-rtag)
+                (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
+                (local-set-key (kbd "M-*") 'helm-gtags-pop-stack)
+                (local-set-key (kbd "C-c C-f") 'helm-gtags-find-files)
+                (local-set-key (kbd "C-c o") 'helm-gtags-parse-file)
+                (add-hook 'after-save-hook 'update-gtags nil 'local))))
   :config
-  (progn
-    (bind-key "C-c h" 'helm-mini)
-    (bind-key "M-y" 'helm-show-kill-ring)
-    (bind-key "C-M-n" 'helm-next-source helm-map)
-    (bind-key "C-M-p" 'helm-previous-source helm-map)))
+  (bind-key "C-c h" 'helm-mini)
+  (bind-key "M-y" 'helm-show-kill-ring)
+  (bind-key "C-M-n" 'helm-next-source helm-map)
+  (bind-key "C-M-p" 'helm-previous-source helm-map))
 
 (use-package markdown-mode
   :config
-  (progn
-    (setq markdown-css-path "http://kevinburke.bitbucket.org/markdowncss/markdown.css")
-    (bind-key "M-n" nil markdown-mode-map)
-    (bind-key "M-p" nil markdown-mode-map)
-    (unless window-system
-      ;; `C-t' confilict to tmux's escape key, so avoid it
-      (bind-key "C-c t 0" 'markdown-remove-header markdown-mode-map)
-      (bind-key "C-c t 1" 'markdown-insert-header-atx-1 markdown-mode-map)
-      (bind-key "C-c t 2" 'markdown-insert-header-atx-2 markdown-mode-map)
-      (bind-key "C-c t 3" 'markdown-insert-header-atx-3 markdown-mode-map)
-      (bind-key "C-c t 4" 'markdown-insert-header-atx-4 markdown-mode-map)
-      (bind-key "C-c t 5" 'markdown-insert-header-atx-5 markdown-mode-map)
-      (bind-key "C-c t 6" 'markdown-insert-header-atx-6 markdown-mode-map)
-      (bind-key "C-c t h" 'markdown-insert-header-dwim markdown-mode-map)
-      (bind-key "C-c t s" 'markdown-insert-header-setext-2 markdown-mode-map)
-      (bind-key "C-c t t" 'markdown-insert-header-setext-1 markdown-mode-map)))
+  (setq markdown-css-path "http://kevinburke.bitbucket.org/markdowncss/markdown.css")
+  (bind-key "M-n" nil markdown-mode-map)
+  (bind-key "M-p" nil markdown-mode-map)
+  (unless window-system
+    ;; `C-t' confilict to tmux's escape key, so avoid it
+    (bind-key "C-c t 0" 'markdown-remove-header markdown-mode-map)
+    (bind-key "C-c t 1" 'markdown-insert-header-atx-1 markdown-mode-map)
+    (bind-key "C-c t 2" 'markdown-insert-header-atx-2 markdown-mode-map)
+    (bind-key "C-c t 3" 'markdown-insert-header-atx-3 markdown-mode-map)
+    (bind-key "C-c t 4" 'markdown-insert-header-atx-4 markdown-mode-map)
+    (bind-key "C-c t 5" 'markdown-insert-header-atx-5 markdown-mode-map)
+    (bind-key "C-c t 6" 'markdown-insert-header-atx-6 markdown-mode-map)
+    (bind-key "C-c t h" 'markdown-insert-header-dwim markdown-mode-map)
+    (bind-key "C-c t s" 'markdown-insert-header-setext-2 markdown-mode-map)
+    (bind-key "C-c t t" 'markdown-insert-header-setext-1 markdown-mode-map))
   :mode
   (("\\.markdown$" . markdown-mode)
    ("\\.md$" . markdown-mode)))
@@ -96,30 +91,34 @@
 
 (use-package cc-mode
   :config
-  (progn
-    (add-hook 'c-mode-common-hook
-              (lambda ()
-                (c-set-offset 'inextern-lang 0)
-                (setq-local c-default-style "K&R")
-                (setq-local indent-tabs-mode nil)
-                (setq-local tab-width 2)
-                (setq-local c-basic-offset 2)))
-    (bind-key "C-c c" 'compile-immediate c-mode-map)))
+  (add-hook 'c-mode-common-hook
+            (lambda ()
+              (c-set-offset 'inextern-lang 0)
+              (setq-local c-default-style "K&R")
+              (setq-local indent-tabs-mode nil)
+              (setq-local tab-width 2)
+              (setq-local c-basic-offset 2)))
+  (bind-key "C-c c" 'compile-immediate c-mode-map))
 
 (use-package highlight-parenthese
-  :init (add-hook 'find-file-hook 'highlight-parentheses-mode))
+  :config
+  (add-hook 'find-file-hook 'highlight-parentheses-mode))
 
 (use-package emacs-lisp-mode
   :init
-  (progn
-    (use-package eldoc
-      :init (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode))
-    (use-package auto-async-byte-compile
-      :init (add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode)
-      :config (setq auto-async-byte-compile-suppress-warnings t)))
-  :config (bind-key "M-." 'find-function-at-point emacs-lisp-mode-map)
-  :interpreter (("emacs" . emacs-lisp-mode))
-  :mode (("Cask" . emacs-lisp-mode)))
+  (use-package eldoc
+    :config
+    (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode))
+  (use-package auto-async-byte-compile
+    :config
+    (add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode)
+    (setq auto-async-byte-compile-suppress-warnings t))
+  :config
+  (bind-key "M-." 'find-function-at-point emacs-lisp-mode-map)
+  :interpreter
+  (("emacs" . emacs-lisp-mode))
+  :mode
+  (("Cask" . emacs-lisp-mode)))
 
 (add-to-list 'auto-mode-alist '("\\.asd$" . lisp-mode))
 (add-to-list 'auto-mode-alist '("\\.asdf$" . lisp-mode))
@@ -127,61 +126,64 @@
   (setq inferior-lisp-program "sbcl"))
 
 (use-package lua-mode
-  :mode (("\\.lua$" . lua-mode)))
+  :mode
+  (("\\.lua$" . lua-mode)))
 
 (use-package sh-script
-  :config (setq sh-basic-offset 2))
+  :config
+  (setq sh-basic-offset 2))
 
 (use-package popwin
-  :init (popwin-mode 1))
+  :config
+  (popwin-mode 1))
 
 (use-package uniquify
-  :config (setq uniquify-buffer-name-style 'post-forward-angle-brackets))
+  :config
+  (setq uniquify-buffer-name-style 'post-forward-angle-brackets))
 
 (use-package mozc
-  :init (setq default-input-method "japanese-mozc"))
+  :config
+  (setq default-input-method "japanese-mozc"))
 
 (use-package inkpot-theme
   :if window-system)
 
 (use-package ibus
-  :if (equal window-system 'x)
-  :init (add-hook 'after-init-hook 'ibus-mode-on)
+  :if
+  (equal window-system 'x)
   :config
-  (progn
-    (add-to-list 'ibus-agent-search-paths
-                 (file-name-directory (locate-library "ibus")))
-    (bind-key "C-\\" 'ibus-toggle)
-    (ibus-define-common-key ?\C-\s nil)
-    (ibus-define-common-key ?\C-/ nil)
-    (setq ibus-cursor-color '("gold" nil))))
+  (add-hook 'after-init-hook 'ibus-mode-on)
+  (add-to-list 'ibus-agent-search-paths
+               (file-name-directory (locate-library "ibus")))
+  (bind-key "C-\\" 'ibus-toggle)
+  (ibus-define-common-key ?\C-\s nil)
+  (ibus-define-common-key ?\C-/ nil)
+  (setq ibus-cursor-color '("gold" nil)))
 
 (use-package esup)
 
 (use-package web-mode
   :config
-  (progn
-    (setq web-mode-markup-indent-offset 2
-          web-mode-css-indent-offset 2
-          web-mode-code-indent-offset 4
-          web-mode-engines-alist '(("php" . "\\.ctp$"))))
+  (setq web-mode-markup-indent-offset 2
+        web-mode-css-indent-offset 2
+        web-mode-code-indent-offset 4
+        web-mode-engines-alist '(("php" . "\\.ctp$")))
   :mode
   (("\\.ctp$" . web-mode)
    ("\\.html?$" . web-mode)))
 
 (use-package php-mode
   :config
-  (progn
-    (setq php-manual-path "/opt/phpdoc")
-    (add-hook 'php-mode-hook
-              (lambda ()
-                (setq-local c-basic-offset 4)))
-    (bind-key "C-c C-m" 'php-search-documentation php-mode-map))
+  (setq php-manual-path "/opt/phpdoc")
+  (add-hook 'php-mode-hook
+            (lambda ()
+              (setq-local c-basic-offset 4)))
+  (bind-key "C-c C-m" 'php-search-documentation php-mode-map)
   :mode
   (("\\.php$" . php-mode)))
 
 (use-package ws-butler
-  :init
+  :config
   (mapc (lambda (hook)
           (add-hook hook 'ws-butler-mode))
         '(c-mode-common-hook
