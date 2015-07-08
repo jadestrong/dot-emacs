@@ -98,7 +98,9 @@
               (setq-local indent-tabs-mode nil)
               (setq-local tab-width 2)
               (setq-local c-basic-offset 2)))
-  (bind-key "C-c c" 'compile-immediate c-mode-map))
+  (bind-key "C-c c" 'compile-immediate c-mode-map)
+  (bind-key "C-c n" 'next-error c-mode-map)
+  (bind-key "C-c p" 'previous-error c-mode-map))
 
 (use-package highlight-parenthese
   :config
