@@ -63,9 +63,11 @@
   (bind-key "C-M-n" 'helm-next-source helm-map)
   (bind-key "C-M-p" 'helm-previous-source helm-map))
 
+(use-package mkdown)
+
 (use-package markdown-mode
   :config
-  (setq markdown-css-path "http://kevinburke.bitbucket.org/markdowncss/markdown.css")
+  (setq markdown-css-paths (list mkdown-css-file-name))
   (bind-key "M-n" nil markdown-mode-map)
   (bind-key "M-p" nil markdown-mode-map)
   (unless window-system

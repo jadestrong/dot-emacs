@@ -9,6 +9,7 @@
 (depends-on "highlight-parentheses")
 (depends-on "inkpot-theme")
 (depends-on "markdown-mode")
+(depends-on "mkdown")
 (depends-on "lua-mode")
 (depends-on "web-mode")
 (depends-on "php-mode")
