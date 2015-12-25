@@ -91,3 +91,12 @@
       (insert-file-contents file))))
 
 (add-hook 'emacs-startup-hook 'read-scratch-data)
+
+;; dired
+(setq dired-dwim-target t)
+(setq dired-recursive-copis 'always)
+(setq dired-isearch-filenames t)
+
+;; ediff
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+(setq ediff-split-window-function 'split-window-horizontally)
