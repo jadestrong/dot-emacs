@@ -11,3 +11,5 @@
 /.cask
 /session.*
 /image-dired
+/site.el
+/meghanada

@@ -16,11 +16,19 @@
 
 (require 'use-package)
 
+(defun el-exists-p (filename)
+  (or (file-exists-p f)
+      (file-exists-p (concat f ".el"))
+      (file-exists-p (concat f ".elc"))))
+
 (defun load-x (file)
-  (load (expand-file-name file user-emacs-directory)))
+  (let ((f (expand-file-name file user-emacs-directory)))
+    (when (el-exists-p f)
+      (load f))))
 
 (load-x "misc")
 (load-x "defuns")
+(load-x "site")
 
 (server-start)
 
@@ -63,11 +71,8 @@
   (bind-key "C-M-n" 'helm-next-source helm-map)
   (bind-key "C-M-p" 'helm-previous-source helm-map))
 
-(use-package mkdown)
-
 (use-package markdown-mode
   :config
-  (setq markdown-css-paths (list mkdown-css-file-name))
   (bind-key "M-n" nil markdown-mode-map)
   (bind-key "M-p" nil markdown-mode-map)
   (unless window-system
@@ -100,9 +105,12 @@
               (setq-local indent-tabs-mode nil)
               (setq-local tab-width 2)
               (setq-local c-basic-offset 2)))
-  (bind-key "C-c c" 'compile-immediate c-mode-map)
-  (bind-key "C-c n" 'next-error c-mode-map)
-  (bind-key "C-c p" 'previous-error c-mode-map))
+  (mapc (lambda (map)
+          (bind-key "C-c c" 'compile-immediate map)
+          (bind-key "C-c n" 'next-error map)
+          (bind-key "C-c p" 'previous-error map))
+        (list c-mode-map
+              c++-mode-map)))
 
 (use-package highlight-parenthese
   :config
@@ -129,10 +137,6 @@
 (when (load (expand-file-name "~/quicklisp/slime-helper.el") t)
   (setq inferior-lisp-program "sbcl"))
 
-(use-package lua-mode
-  :mode
-  (("\\.lua$" . lua-mode)))
-
 (use-package sh-script
   :config
   (setq sh-basic-offset 2))
@@ -144,10 +148,6 @@
 (use-package uniquify
   :config
   (setq uniquify-buffer-name-style 'post-forward-angle-brackets))
-
-(use-package mozc
-  :config
-  (setq default-input-method "japanese-mozc"))
 
 (use-package inkpot-theme
   :if window-system)
@@ -174,7 +174,8 @@
         web-mode-engines-alist '(("php" . "\\.ctp$")))
   :mode
   (("\\.ctp$" . web-mode)
-   ("\\.html?$" . web-mode)))
+   ("\\.html?$" . web-mode)
+   ("\\.jsx$" . web-mode)))
 
 (use-package php-mode
   :config
@@ -192,6 +193,31 @@
           (add-hook hook 'ws-butler-mode))
         '(c-mode-common-hook
           emacs-lisp-mode-hook)))
+
+(use-package js2-mode)
+(use-package json-mode)
+
+(use-package flycheck)
+(use-package flycheck-pyflakes)
+
+(use-package cider)
+
+(use-package dockerfile-mode)
+
+(use-package yaml-mode)
+
+(use-package editorconfig
+  :init
+  (add-hook 'prog-mode-hook (editorconfig-mode 1))
+  (add-hook 'text-mode-hook (editorconfig-mode 1)))
+
+(use-package meghanada
+  :init
+  (add-hook 'java-mode-hook
+            (lambda ()
+              ;; meghanada-mode on
+              (meghanada-mode t)
+              (add-hook 'before-save-hook 'meghanada-code-beautify-before-save))))
 
 
 ;;;; Global Bindings
