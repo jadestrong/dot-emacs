@@ -56,6 +56,7 @@
   (use-package helm-gtags
     :config
     (add-hook 'c-mode-common-hook 'helm-gtags-mode)
+    (add-hook 'asm-mode-hook 'helm-gtags-mode)
     (add-hook 'helm-gtags-mode-hook
               (lambda ()
                 (local-set-key (kbd "M-.") 'helm-gtags-find-tag)
