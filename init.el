@@ -106,6 +106,9 @@
               (setq-local indent-tabs-mode nil)
               (setq-local tab-width 2)
               (setq-local c-basic-offset 2)))
+  (add-hook 'java-mode-hook
+            (lambda ()
+              (setq-local c-basic-offset 4)))
   (mapc (lambda (map)
           (bind-key "C-c c" 'compile-immediate map)
           (bind-key "C-c n" 'next-error map)
