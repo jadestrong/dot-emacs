@@ -18,7 +18,7 @@
 (depends-on "json-mode")
 (depends-on "flycheck")
 (depends-on "flycheck-pyflakes")
-(depends-on "cider")
+; (depends-on "cider")
 (depends-on "yaml-mode")
 (depends-on "dockerfile-mode")
 (depends-on "editorconfig")
