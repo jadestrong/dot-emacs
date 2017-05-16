@@ -23,3 +23,4 @@
 (depends-on "dockerfile-mode")
 (depends-on "editorconfig")
 (depends-on "meghanada")
+(depends-on "adoc-mode")
