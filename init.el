@@ -67,9 +67,9 @@
                 (local-set-key (kbd "C-c o") 'helm-gtags-parse-file)
                 (add-hook 'after-save-hook 'update-gtags nil 'local))))
   :config
-  (bind-key "C-c h" 'helm-mini)
   (bind-key "M-y" 'helm-show-kill-ring)
-  (bind-key "C-M-o" 'helm-occur))
+  (bind-key "C-M-o" 'helm-occur)
+  (bind-key "C-M-g" 'helm-ag))
 
 (use-package markdown-mode
   :config
