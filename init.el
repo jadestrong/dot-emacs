@@ -16,7 +16,7 @@
 
 (require 'use-package)
 
-(defun el-exists-p (filename)
+(defun el-exists-p (f)
   (or (file-exists-p f)
       (file-exists-p (concat f ".el"))
       (file-exists-p (concat f ".elc"))))
@@ -68,8 +68,7 @@
   :config
   (bind-key "C-c h" 'helm-mini)
   (bind-key "M-y" 'helm-show-kill-ring)
-  (bind-key "C-M-n" 'helm-next-source helm-map)
-  (bind-key "C-M-p" 'helm-previous-source helm-map))
+  (bind-key "C-M-o" 'helm-occur))
 
 (use-package markdown-mode
   :config
@@ -152,30 +151,20 @@
 (use-package inkpot-theme
   :if window-system)
 
-(use-package ibus
-  :if
-  (equal window-system 'x)
-  :config
-  (add-hook 'after-init-hook 'ibus-mode-on)
-  (add-to-list 'ibus-agent-search-paths
-               (file-name-directory (locate-library "ibus")))
-  (bind-key "C-\\" 'ibus-toggle)
-  (ibus-define-common-key ?\C-\s nil)
-  (ibus-define-common-key ?\C-/ nil)
-  (setq ibus-cursor-color '("gold" nil)))
-
 (use-package esup)
 
 (use-package web-mode
   :config
   (setq web-mode-markup-indent-offset 2
         web-mode-css-indent-offset 2
-        web-mode-code-indent-offset 4
+        web-mode-code-indent-offset 2
+        web-mode-attr-indent-offset nil
         web-mode-engines-alist '(("php" . "\\.ctp$")))
   :mode
   (("\\.ctp$" . web-mode)
    ("\\.html?$" . web-mode)
-   ("\\.jsx$" . web-mode)))
+   ("\\.jsx?$" . web-mode)
+   ("\\.json$" . web-mode)))
 
 (use-package php-mode
   :config
@@ -194,15 +183,8 @@
         '(c-mode-common-hook
           emacs-lisp-mode-hook)))
 
-(use-package js2-mode)
-(use-package json-mode)
-
 (use-package flycheck)
 (use-package flycheck-pyflakes)
-
-(use-package cider)
-
-(use-package dockerfile-mode)
 
 (use-package yaml-mode)
 
@@ -210,14 +192,6 @@
   :init
   (add-hook 'prog-mode-hook (editorconfig-mode 1))
   (add-hook 'text-mode-hook (editorconfig-mode 1)))
-
-(use-package meghanada
-  :init
-  (add-hook 'java-mode-hook
-            (lambda ()
-              ;; meghanada-mode on
-              (meghanada-mode t)
-              (add-hook 'before-save-hook 'meghanada-code-beautify-before-save))))
 
 
 ;;;; Global Bindings
