@@ -56,6 +56,7 @@
   (use-package helm-gtags
     :config
     (add-hook 'c-mode-common-hook 'helm-gtags-mode)
+    (add-hook 'asm-mode-hook 'helm-gtags-mode)
     (add-hook 'helm-gtags-mode-hook
               (lambda ()
                 (local-set-key (kbd "M-.") 'helm-gtags-find-tag)
@@ -104,6 +105,9 @@
               (setq-local indent-tabs-mode nil)
               (setq-local tab-width 2)
               (setq-local c-basic-offset 2)))
+  (add-hook 'java-mode-hook
+            (lambda ()
+              (setq-local c-basic-offset 4)))
   (mapc (lambda (map)
           (bind-key "C-c c" 'compile-immediate map)
           (bind-key "C-c n" 'next-error map)
