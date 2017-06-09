@@ -52,26 +52,27 @@
       (start-process "gtags-update" nil "global" "-u"))))
 
 (use-package helm
-  :init
-  (use-package helm-gtags
-    :config
-    (add-hook 'c-mode-common-hook 'helm-gtags-mode)
-    (add-hook 'asm-mode-hook 'helm-gtags-mode)
-    (add-hook 'helm-gtags-mode-hook
-              (lambda ()
-                (local-set-key (kbd "M-.") 'helm-gtags-find-tag)
-                (local-set-key (kbd "M-,") 'helm-gtags-find-rtag)
-                (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
-                (local-set-key (kbd "M-*") 'helm-gtags-pop-stack)
-                (local-set-key (kbd "C-c C-f") 'helm-gtags-find-files)
-                (local-set-key (kbd "C-c o") 'helm-gtags-parse-file)
-                (add-hook 'after-save-hook 'update-gtags nil 'local))))
   :config
   (bind-key "M-y" 'helm-show-kill-ring)
   (bind-key "C-M-o" 'helm-occur)
   (bind-key "C-M-g" 'helm-ag))
 
+;; (use-package helm-gtags
+;;   :config
+;;   (add-hook 'c-mode-common-hook 'helm-gtags-mode)
+;;   (add-hook 'asm-mode-hook 'helm-gtags-mode)
+;;   (add-hook 'helm-gtags-mode-hook
+;;             (lambda ()
+;;               (local-set-key (kbd "M-.") 'helm-gtags-find-tag)
+;;               (local-set-key (kbd "M-,") 'helm-gtags-find-rtag)
+;;               (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
+;;               (local-set-key (kbd "M-*") 'helm-gtags-pop-stack)
+;;               (local-set-key (kbd "C-c C-f") 'helm-gtags-find-files)
+;;               (local-set-key (kbd "C-c o") 'helm-gtags-parse-file)
+;;               (add-hook 'after-save-hook 'update-gtags nil 'local))))
+
 (use-package markdown-mode
+  :commands (markdown-mode)
   :config
   (bind-key "M-n" nil markdown-mode-map)
   (bind-key "M-p" nil markdown-mode-map)
@@ -97,6 +98,7 @@
   (call-interactively 'compile))
 
 (use-package cc-mode
+  :commands (cc-mode)
   :config
   (add-hook 'c-mode-common-hook
             (lambda ()
@@ -115,11 +117,11 @@
         (list c-mode-map
               c++-mode-map)))
 
-(use-package highlight-parenthese
+(use-package highlight-parentheses
   :config
   (add-hook 'find-file-hook 'highlight-parentheses-mode))
 
-(use-package emacs-lisp-mode
+(use-package elisp-mode
   :init
   (use-package eldoc
     :config
@@ -158,6 +160,7 @@
 (use-package esup)
 
 (use-package web-mode
+  :commands (web-mode)
   :config
   (setq web-mode-markup-indent-offset 2
         web-mode-css-indent-offset 2
@@ -171,6 +174,7 @@
    ("\\.json$" . web-mode)))
 
 (use-package php-mode
+  :commands (php-mode)
   :config
   (setq php-manual-path "/opt/phpdoc")
   (add-hook 'php-mode-hook
@@ -190,7 +194,8 @@
 (use-package flycheck)
 (use-package flycheck-pyflakes)
 
-(use-package yaml-mode)
+(use-package yaml-mode
+  :commands (yaml-mode))
 
 (use-package editorconfig
   :init
@@ -198,6 +203,7 @@
   (add-hook 'text-mode-hook (editorconfig-mode 1)))
 
 (use-package adoc-mode
+  :commands (adoc-mode)
   :mode
   (("\\.adoc$" . adoc-mode)))
 
