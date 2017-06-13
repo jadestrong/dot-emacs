@@ -207,6 +207,26 @@
   :mode
   (("\\.adoc$" . adoc-mode)))
 
+(use-package enh-ruby-mode
+  :commands (enh-ruby-mode)
+  :config
+  (setq enh-ruby-deep-indent-paren nil)
+  :mode
+  (("\\(?:\\.rb\\|ru\\|rake\\|thor\\|jbuilder\\|gemspec\\|podspec\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'" . enh-ruby-mode)))
+
+(use-package ruby-electric
+  :commands (ruby-electric-mode)
+  :init (add-hook 'enh-ruby-mode-hook 'ruby-electric-mode))
+
+(use-package inf-ruby
+  :commands (inf-ruby-minor-mode))
+
+(use-package rspec-mode
+  :commands (rspec-mode))
+
+(use-package haml-mode
+  :commands (haml-mode))
+
 
 ;;;; Global Bindings
 

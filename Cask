@@ -19,3 +19,8 @@
 (depends-on "yaml-mode")
 (depends-on "editorconfig")
 (depends-on "adoc-mode")
+(depends-on "enh-ruby-mode")
+(depends-on "ruby-electric")
+(depends-on "inf-ruby")
+(depends-on "rspec-mode")
+(depends-on "haml-mode")
