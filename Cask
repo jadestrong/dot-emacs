@@ -24,3 +24,4 @@
 (depends-on "inf-ruby")
 (depends-on "rspec-mode")
 (depends-on "haml-mode")
+(depends-on "magit")

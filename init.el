@@ -227,6 +227,10 @@
 (use-package haml-mode
   :commands (haml-mode))
 
+(use-package magit
+  :commands (magit-status)
+  :init (bind-key "C-x g" 'magit-status))
+
 
 ;;;; Global Bindings
 
