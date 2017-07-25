@@ -211,6 +211,9 @@
   :commands (enh-ruby-mode)
   :config
   (setq enh-ruby-deep-indent-paren nil)
+  (add-hook 'enh-ruby-mode-hook
+            (lambda ()
+              (defun enh-ruby-mode-set-encoding ())))
   :mode
   (("\\(?:\\.rb\\|ru\\|rake\\|thor\\|jbuilder\\|gemspec\\|podspec\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'" . enh-ruby-mode)))
 
