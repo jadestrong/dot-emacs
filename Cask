@@ -25,3 +25,4 @@
 (depends-on "rspec-mode")
 (depends-on "haml-mode")
 (depends-on "magit")
+(depends-on "highlight-indentation")

@@ -234,6 +234,23 @@
   :commands (magit-status)
   :init (bind-key "C-x g" 'magit-status))
 
+(use-package highlight-indentation
+  :config
+  (set-face-background 'highlight-indentation-face "gray20")
+
+  (defadvice highlight-indentation-guess-offset (around my-highlight-indentation-guess-offset)
+    (cond ((and (eq major-mode 'enh-ruby-mode) (boundp 'enh-ruby-indent-level))
+           (setq ad-return-value enh-ruby-indent-level))
+          ((and (eq major-mode 'haml-mode) (boundp 'haml-indent-offset))
+           (setq ad-return-value haml-indent-offset))
+          (t
+           ad-do-it)))
+
+  (ad-activate 'highlight-indentation-guess-offset)
+
+  (dolist (hook '(enh-ruby-mode-hook python-mode-hook haml-mode-hook))
+    (add-hook hook 'highlight-indentation-mode)))
+
 
 ;;;; Global Bindings
 
