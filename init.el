@@ -157,7 +157,7 @@
 (use-package inkpot-theme
   :if window-system)
 
-(use-package esup)
+;; (use-package esup)
 
 (use-package web-mode
   :commands (web-mode)
@@ -189,6 +189,11 @@
   (mapc (lambda (hook)
           (add-hook hook 'ws-butler-mode))
         '(c-mode-common-hook
+          enh-ruby-mode-hook
+          python-mode-hook
+          haml-mode-hook
+          yaml-mode-hook
+          lisp-mode-hook
           emacs-lisp-mode-hook)))
 
 (use-package flycheck)
@@ -210,10 +215,16 @@
 (use-package enh-ruby-mode
   :commands (enh-ruby-mode)
   :config
-  (setq enh-ruby-deep-indent-paren nil)
+  (custom-set-variables
+   '(enh-ruby-deep-indent-paren nil))
   (add-hook 'enh-ruby-mode-hook
             (lambda ()
               (defun enh-ruby-mode-set-encoding ())))
+  ;; invalid face と怒られる
+  ;; (add-hook 'enh-ruby-mode-hook
+  ;;           (lambda ()
+  ;;             (set-face-attribute 'enh-ruby-op-face nil :foreground nil :inherit 'default)))
+
   :mode
   (("\\(?:\\.rb\\|ru\\|rake\\|thor\\|jbuilder\\|gemspec\\|podspec\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'" . enh-ruby-mode)))
 
@@ -237,6 +248,7 @@
 (use-package highlight-indentation
   :config
   (set-face-background 'highlight-indentation-face "gray20")
+  (set-face-background 'highlight-indentation-current-column-face "gray35")
 
   (defadvice highlight-indentation-guess-offset (around my-highlight-indentation-guess-offset)
     (cond ((and (eq major-mode 'enh-ruby-mode) (boundp 'enh-ruby-indent-level))
@@ -249,7 +261,8 @@
   (ad-activate 'highlight-indentation-guess-offset)
 
   (dolist (hook '(enh-ruby-mode-hook python-mode-hook haml-mode-hook))
-    (add-hook hook 'highlight-indentation-mode)))
+    (add-hook hook 'highlight-indentation-mode)
+    (add-hook hook 'highlight-indentation-current-column-mode)))
 
 
 ;;;; Global Bindings
