@@ -212,19 +212,15 @@
   :mode
   (("\\.adoc$" . adoc-mode)))
 
+(defun set-enh-ruby-mode-face ()
+  (set-face-attribute 'enh-ruby-op-face nil :foreground nil :inherit 'default))
+
 (use-package enh-ruby-mode
   :commands (enh-ruby-mode)
   :config
-  (custom-set-variables
-   '(enh-ruby-deep-indent-paren nil))
-  (add-hook 'enh-ruby-mode-hook
-            (lambda ()
-              (defun enh-ruby-mode-set-encoding ())))
-  ;; invalid face と怒られる
-  ;; (add-hook 'enh-ruby-mode-hook
-  ;;           (lambda ()
-  ;;             (set-face-attribute 'enh-ruby-op-face nil :foreground nil :inherit 'default)))
-
+  (setq enh-ruby-deep-indent-paren nil
+        enh-ruby-add-encoding-comment-on-save nil)
+  (add-hook 'enh-ruby-mode-hook 'set-enh-ruby-mode-face t)
   :mode
   (("\\(?:\\.rb\\|ru\\|rake\\|thor\\|jbuilder\\|gemspec\\|podspec\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'" . enh-ruby-mode)))
 
@@ -236,7 +232,14 @@
   :commands (inf-ruby-minor-mode))
 
 (use-package rspec-mode
-  :commands (rspec-mode))
+  :commands (rspec-mode)
+  :config
+;  (setq rspec-use-bundler-when-possible t
+;        rspec-use-spring-when-possible nil)
+  (add-hook 'enh-ruby-mode-hook
+            (lambda ()
+              (when (string-match "_spec\\.rb\\'" (buffer-file-name))
+                (rspec-mode)))))
 
 (use-package haml-mode
   :commands (haml-mode))
