@@ -234,12 +234,7 @@
 (use-package rspec-mode
   :commands (rspec-mode)
   :config
-;  (setq rspec-use-bundler-when-possible t
-;        rspec-use-spring-when-possible nil)
-  (add-hook 'enh-ruby-mode-hook
-            (lambda ()
-              (when (string-match "_spec\\.rb\\'" (buffer-file-name))
-                (rspec-mode)))))
+  (add-hook 'enh-ruby-mode-hook 'rspec-mode))
 
 (use-package haml-mode
   :commands (haml-mode))
