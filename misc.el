@@ -1,3 +1,7 @@
+;; menubar, toolbar, scrollbar
+(dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode))
+  (when (fboundp mode) (funcall mode -1)))
+
 ;; GC
 (setq gc-cons-threshold (* 128 1024 1024))
 
