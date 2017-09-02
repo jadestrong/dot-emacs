@@ -80,3 +80,24 @@
            (set-window-start w1 s2)
            (set-window-start w2 s1))))
   (other-window 1))
+
+(defun git-project-p ()
+  (string=
+   (s-chomp (shell-command-to-string "git rev-parse --is-inside-work-tree"))
+   "true"))
+
+(defun git-root-directory ()
+  (cond ((git-project-p)
+         (s-chomp (shell-command-to-string "git rev-parse --show-toplevel")))
+        (t
+         "")))
+
+(defun git-grep (grep-dir command-args)
+  (interactive
+   (let ((root (concat (git-root-directory) "/")))
+     (list (ido-read-directory-name "Directory for git grep: " root root t)
+           (read-shell-command "Run git-grep (like this): "
+                               (format "PAGER='' git grep -I -n -i -e ")
+                               'git-grep-history))))
+  (let ((command (format "cd %s && %s" grep-dir command-args)))
+    (grep command)))
