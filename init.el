@@ -103,7 +103,9 @@
 
 (use-package popwin
   :config
-  (popwin-mode 1))
+  (popwin-mode 1)
+  (push '(rspec-compilation-mode :noselect t) popwin:special-display-config)
+  (push '(xref--xref-buffer-mode :noselect t) popwin:special-display-config))
 
 (use-package uniquify
   :config
