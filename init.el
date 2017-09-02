@@ -94,7 +94,8 @@
 
 (defun compile-immediate ()
   (interactive)
-  (setq-local compilation-read-command nil)
+  (custom-set-variables
+   '(compilation-read-command nil))
   (call-interactively 'compile))
 
 (use-package cc-mode
@@ -140,7 +141,8 @@
 (add-to-list 'auto-mode-alist '("\\.asd$" . lisp-mode))
 (add-to-list 'auto-mode-alist '("\\.asdf$" . lisp-mode))
 (when (load (expand-file-name "~/quicklisp/slime-helper.el") t)
-  (setq inferior-lisp-program "sbcl"))
+  (custom-set-variables
+   '(inferior-lisp-program "sbcl")))
 
 (use-package sh-script
   :config
@@ -204,8 +206,8 @@
 
 (use-package editorconfig
   :init
-  (add-hook 'prog-mode-hook (editorconfig-mode 1))
-  (add-hook 'text-mode-hook (editorconfig-mode 1)))
+  (add-hook 'prog-mode-hook (lambda () (editorconfig-mode 1)))
+  (add-hook 'text-mode-hook (lambda () (editorconfig-mode 1))))
 
 (use-package adoc-mode
   :commands (adoc-mode)
@@ -233,8 +235,11 @@
 
 (use-package rspec-mode
   :commands (rspec-mode)
+  :init
+  (add-hook 'enh-ruby-mode-hook 'rspec-mode)
   :config
-  (add-hook 'enh-ruby-mode-hook 'rspec-mode))
+  (setq rspec-use-spring-when-possible nil
+        rspec-use-bundler-when-possible t))
 
 (use-package haml-mode
   :commands (haml-mode))
