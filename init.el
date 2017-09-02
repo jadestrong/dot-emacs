@@ -1,35 +1,18 @@
-(require 'cl-lib)
-
-(let ((vendor-dir-path (expand-file-name "vendor" user-emacs-directory)))
-  (dolist (dir (cl-remove-if (lambda (s)
-                               (or (member s '("." ".."))
-                                   (not (file-directory-p
-                                         (expand-file-name s vendor-dir-path)))))
-                             (directory-files vendor-dir-path)))
-    (add-to-list 'load-path (expand-file-name dir vendor-dir-path))))
-
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
 
-(require 'use-package)
-
-(defun el-exists-p (f)
-  (or (file-exists-p f)
-      (file-exists-p (concat f ".el"))
-      (file-exists-p (concat f ".elc"))))
-
-(defun load-x (file)
+(defun load-x (file &rest args)
   (let ((f (expand-file-name file user-emacs-directory)))
-    (when (el-exists-p f)
-      (load f))))
+    (apply 'load f args)))
 
 (load-x "misc")
 (load-x "defuns")
-(load-x "site")
+(load-x "site" t)
 
 (server-start)
 
 ;;;; Packages
+(require 'use-package)
 
 (use-package ido
   :config
