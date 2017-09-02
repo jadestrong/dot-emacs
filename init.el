@@ -44,18 +44,18 @@
   (setq ido-max-prospects 10)
   (setq ido-case-fold t))
 
-(defun update-gtags ()
-  (interactive)
-  (let* ((file (buffer-file-name (current-buffer)))
-         (dir (directory-file-name (file-name-directory file))))
-    (when (executable-find "global")
-      (start-process "gtags-update" nil "global" "-u"))))
+;; (defun update-gtags ()
+;;   (interactive)
+;;   (let* ((file (buffer-file-name (current-buffer)))
+;;          (dir (directory-file-name (file-name-directory file))))
+;;     (when (executable-find "global")
+;;       (start-process "gtags-update" nil "global" "-u"))))
 
-(use-package helm
-  :config
-  (bind-key "M-y" 'helm-show-kill-ring)
-  (bind-key "C-M-o" 'helm-occur)
-  (bind-key "C-M-g" 'helm-ag))
+;; (use-package helm
+;;   :config
+;;   (bind-key "M-y" 'helm-show-kill-ring)
+;;   (bind-key "C-M-o" 'helm-occur)
+;;   (bind-key "C-M-g" 'helm-ag))
 
 ;; (use-package helm-gtags
 ;;   :config
