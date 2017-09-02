@@ -26,3 +26,4 @@
 (depends-on "haml-mode")
 (depends-on "magit")
 (depends-on "highlight-indentation")
+(depends-on "wgrep")

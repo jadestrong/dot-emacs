@@ -267,6 +267,8 @@
     (add-hook hook 'highlight-indentation-mode)
     (add-hook hook 'highlight-indentation-current-column-mode)))
 
+(use-package wgrep)
+
 
 ;;;; Global Bindings
 
