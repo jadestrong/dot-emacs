@@ -24,33 +24,6 @@
   (setq ido-max-prospects 10)
   (setq ido-case-fold t))
 
-;; (defun update-gtags ()
-;;   (interactive)
-;;   (let* ((file (buffer-file-name (current-buffer)))
-;;          (dir (directory-file-name (file-name-directory file))))
-;;     (when (executable-find "global")
-;;       (start-process "gtags-update" nil "global" "-u"))))
-
-;; (use-package helm
-;;   :config
-;;   (bind-key "M-y" 'helm-show-kill-ring)
-;;   (bind-key "C-M-o" 'helm-occur)
-;;   (bind-key "C-M-g" 'helm-ag))
-
-;; (use-package helm-gtags
-;;   :config
-;;   (add-hook 'c-mode-common-hook 'helm-gtags-mode)
-;;   (add-hook 'asm-mode-hook 'helm-gtags-mode)
-;;   (add-hook 'helm-gtags-mode-hook
-;;             (lambda ()
-;;               (local-set-key (kbd "M-.") 'helm-gtags-find-tag)
-;;               (local-set-key (kbd "M-,") 'helm-gtags-find-rtag)
-;;               (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
-;;               (local-set-key (kbd "M-*") 'helm-gtags-pop-stack)
-;;               (local-set-key (kbd "C-c C-f") 'helm-gtags-find-files)
-;;               (local-set-key (kbd "C-c o") 'helm-gtags-parse-file)
-;;               (add-hook 'after-save-hook 'update-gtags nil 'local))))
-
 (use-package markdown-mode
   :commands (markdown-mode)
   :config
@@ -263,6 +236,8 @@
 (bind-key "M-0" 'delete-window)
 (bind-key "M-}" 'next-buffer)
 (bind-key "M-{" 'previous-buffer)
+(bind-key "M-]" 'next-error)
+(bind-key "M-[" 'previous-error)
 
 (bind-key "C-c s" 'swap-windows)
 (bind-key "C-c w" 'whitespace-mode)
