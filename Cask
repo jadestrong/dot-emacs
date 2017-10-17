@@ -27,3 +27,5 @@
 (depends-on "magit")
 (depends-on "highlight-indentation")
 (depends-on "wgrep")
+(depends-on "coffee-mode")
+(depends-on "sass-mode")
