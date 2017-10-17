@@ -91,11 +91,12 @@
   :mode
   (("Cask" . emacs-lisp-mode)))
 
-(add-to-list 'auto-mode-alist '("\\.asd$" . lisp-mode))
-(add-to-list 'auto-mode-alist '("\\.asdf$" . lisp-mode))
-(when (load (expand-file-name "~/quicklisp/slime-helper.el") t)
-  (custom-set-variables
-   '(inferior-lisp-program "sbcl")))
+(use-package slime
+  :config
+  (setq inferior-lisp-program "sbcl"
+        slime-contribs '(slime-fancy))
+  :mode
+  (("\\.asdf?$" . lisp-mode)))
 
 (use-package sh-script
   :config

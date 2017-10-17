@@ -4,9 +4,6 @@
 
 (depends-on "use-package")
 (depends-on "popwin")
-;; (depends-on "helm")
-;; (depends-on "helm-gtags")
-;; (depends-on "helm-ag")
 (depends-on "auto-async-byte-compile")
 (depends-on "highlight-parentheses")
 (depends-on "inkpot-theme")
@@ -29,3 +26,4 @@
 (depends-on "wgrep")
 (depends-on "coffee-mode")
 (depends-on "sass-mode")
+(depends-on "slime")
